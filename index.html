@@ -1,46 +1,309 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Name Recommender</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px;
+        text-align: center;
+        background-color: #f5f5f5;
+      }
+      h1 {
+        border: 4px solid rgb(72, 165, 72);
+        margin: 40px;
+        height: 50px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        font-size: 18px;
+      }
+      select {
+        padding: 8px;
+        font-size: 16px;
+      }
+      button {
+        padding: 12px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      #result {
+        margin-top: 20px;
+      }
+      #footer {
+        margin-top: 40px;
+        color: #777;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>해외 여행에 어울리는 이름 생성기</h1>
+    <br />
 
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>HTML Example</title>
-  
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/about.css">
-</head>
-<body>
-  <section class="center">
-    <aside class="sidebar"></aside>
-    
-    <section class="contents">
-      <!-- page will be include here -->
-      <section id="page" class="page">
-        <section id="about">
-          <section class="frame">
-            <h2><b>HELLO</b>WORLD</h2>
-            
-            <div class="cat">
-              <div class="picture">
-                <img src="images/mew.png" alt="Mew">
-              </div>
-              <small>Mew</small>
-            </div>
-            <div class="cat">
-              <div class="picture">
-                <img src="images/siesta.png" alt="Siesta">
-              </div>
-              <small>Siesta</small>
-            </div>
-            <div class="cat">
-              <div class="picture">
-                <img src="images/tiger.png" alt="Tiger">
-              </div>
-              <small>Tiger</small>
-            </div>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
-</body>
+    <label for="country">어느 나라 이름이 필요하세요?</label>
+    <select id="country">
+      <option value="english">유럽</option>
+      <option value="thailand">태국</option>
+      <option value="china">중국</option>
+      <option value="japan">일본</option>
+    </select>
+    <br />
+    <br />
+    <label for="age">연령대는 어떻게 되세요?</label>
+    <select id="age">
+      <option value="10s">아직 잼민이입니다! (10대)</option>
+      <option value="20s">저 다 컸어요! (20대)</option>
+      <option value="30s">돈 벌기 힘들어요ㅜ (30대)</option>
+      <option value="40s">어르신 (40대 이상)</option>
+    </select>
+    <br />
+    <br />
+    <label for="sex">성별은 어떻게 되세요?</label>
+    <select id="sex">
+      <option value="male">남자</option>
+      <option value="female">여자</option>
+    </select>
+    <br />
+    <br />
+    <br />
+    <br />
+    <button onclick="generateName()">이름 생성</button>
+    <div id="result"></div>
+    <div id="footer">
+      <p>*중국 이름은 본인의 한문 이름을 중국식으로 읽으면 되지만,</p>
+      <p>이 페이지는 개발자가 재미로 만든 것이기에 웃어주세요. >.<</p>
+    </div>
+
+    <script>
+      function generateName() {
+        const country = document.getElementById("country").value;
+        const age = document.getElementById("age").value;
+
+        const nameInfo = getRandomName(country, age);
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `<h2>이 이름은 어떠신가요?</h2><p>${nameInfo.name}</p>
+        <p>  이렇게 읽으세요 -> ${nameInfo.pronunciation}</p>`;
+      }
+
+      function getRandomName(country, age) {
+        let names = [];
+
+        const englishNames = [
+          [
+            { name: "Ethan", pronunciation: "EE-thun" },
+            { name: "Olivia", pronunciation: "o-LIV-ee-uh" },
+            { name: "Liam", pronunciation: "LEE-um" },
+            { name: "Emma", pronunciation: "EM-uh" },
+            { name: "Noah", pronunciation: "NO-uh" },
+            { name: "Ava", pronunciation: "AH-vuh" },
+            { name: "Jackson", pronunciation: "JAK-sun" },
+            { name: "Sophia", pronunciation: "so-FEE-uh" },
+            { name: "Aiden", pronunciation: "AY-den" },
+            { name: "Isabella", pronunciation: "iz-uh-BEL-uh" },
+          ],
+          [
+            { name: "Benjamin", pronunciation: "BEN-juh-min" },
+            { name: "Sophia", pronunciation: "so-FEE-uh" },
+            { name: "Henry", pronunciation: "HEN-ree" },
+            { name: "Olivia", pronunciation: "o-LIV-ee-uh" },
+            { name: "Alexander", pronunciation: "al-ig-ZAN-der" },
+            { name: "Ava", pronunciation: "AH-vuh" },
+            { name: "William", pronunciation: "WIL-yum" },
+            { name: "Mia", pronunciation: "MEE-uh" },
+            { name: "James", pronunciation: "JAYMZ" },
+            { name: "Emma", pronunciation: "EM-uh" },
+          ],
+          [
+            { name: "Charles", pronunciation: "CHARLZ" },
+            { name: "Emily", pronunciation: "EM-uh-lee" },
+            { name: "Matthew", pronunciation: "MATH-yoo" },
+            { name: "Ava", pronunciation: "AH-vuh" },
+            { name: "Daniel", pronunciation: "DAN-yul" },
+            { name: "Sophia", pronunciation: "so-FEE-uh" },
+            { name: "David", pronunciation: "DAY-vid" },
+            { name: "Olivia", pronunciation: "o-LIV-ee-uh" },
+            { name: "Joseph", pronunciation: "JOH-zef" },
+            { name: "Mia", pronunciation: "MEE-uh" },
+          ],
+          [
+            { name: "Timothy", pronunciation: "TIM-uh-thee" },
+            { name: "Jennifer", pronunciation: "JEN-uh-fer" },
+            { name: "Richard", pronunciation: "RICH-urd" },
+            { name: "Michelle", pronunciation: "mi-SHEL" },
+            { name: "Kenneth", pronunciation: "KEN-uth" },
+            { name: "Kimberly", pronunciation: "KIM-ber-lee" },
+            { name: "Brian", pronunciation: "BRY-an" },
+            { name: "Lisa", pronunciation: "LEE-suh" },
+            { name: "Kevin", pronunciation: "KEV-in" },
+            { name: "Angela", pronunciation: "AN-juh-luh" },
+          ],
+        ];
+
+        const thaiNames = [
+          { name: "ณัฐนนท์", pronunciation: "Nut-nan" },
+          { name: "วีระ", pronunciation: "Wee-ra" },
+          { name: "ณัฐพล", pronunciation: "Nut-pon" },
+          { name: "ณัฐกฤต", pronunciation: "Nut-ka-rit" },
+          { name: "อนุวัฒน์", pronunciation: "Anu-wat" },
+          { name: "ภาณุวัฒน์", pronunciation: "Pa-nu-wat" },
+          { name: "สิรวิชญ์", pronunciation: "Si-ru-wit" },
+          { name: "ทวี", pronunciation: "Tawee" },
+          { name: "วีระพล", pronunciation: "Wee-ra-pon" },
+          { name: "นันทวัฒน์", pronunciation: "Nan-ta-wat" },
+          { name: "ชัชวิน", pronunciation: "Chat-win" },
+          { name: "ธนวัฒน์", pronunciation: "Than-wat" },
+          { name: "พงศ์เจริญ", pronunciation: "Pong-ja-run" },
+          { name: "ปณิธ", pronunciation: "Pa-nit" },
+          { name: "ธัชชิน", pronunciation: "Tat-chin" },
+          { name: "สมศักดิ์", pronunciation: "Som-sak" },
+          { name: "ประเสริฐ", pronunciation: "Pra-sert" },
+          { name: "วิทยา", pronunciation: "Wi-tha-ya" },
+          { name: "วิชัย", pronunciation: "Wi-chai" },
+          { name: "ธนบดี", pronunciation: "Tan-bo-dee" },
+        ];
+
+        const chineseNames = [
+          { name: "嘉懿", pronunciation: "Jia-yi" },
+          { name: "明浩", pronunciation: "Ming-hao" },
+          { name: "洋", pronunciation: "Yang" },
+          { name: "宇航", pronunciation: "Yu-hang" },
+          { name: "建宇", pronunciation: "Jian-yu" },
+          { name: "弘文", pronunciation: "Hong-wen" },
+          { name: "宇轩", pronunciation: "Yu-xuan" },
+          { name: "宇辰", pronunciation: "Yu-chen" },
+          { name: "永康", pronunciation: "Yong-kang" },
+          { name: "轩宇", pronunciation: "Xuan-yu" },
+          { name: "文豪", pronunciation: "Wen-hao" },
+          { name: "宇航", pronunciation: "Yu-hang" },
+          { name: "昊天", pronunciation: "Hao-tian" },
+          { name: "永鹏", pronunciation: "Yong-peng" },
+          { name: "云飞", pronunciation: "Yun-fei" },
+          { name: "文豪", pronunciation: "Wen-hao" },
+          { name: "宇航", pronunciation: "Yu-hang" },
+          { name: "昊天", pronunciation: "Hao-tian" },
+          { name: "永鹏", pronunciation: "Yong-peng" },
+          { name: "云飞", pronunciation: "Yun-fei" },
+        ];
+
+        const japaneseNames = [
+          { name: "春人", pronunciation: "はると (Haruto)" },
+          { name: "友人", pronunciation: "ゆうと (Yuto)" },
+          { name: "宗太", pronunciation: "そうた (Sota)" },
+          { name: "陸", pronunciation: "りく (Riku)" },
+          { name: "勇気", pronunciation: "ゆうき (Yuki)" },
+          { name: "蓮", pronunciation: "れん (Ren)" },
+          { name: "翔太", pronunciation: "しょうた (Shota)" },
+          { name: "巧", pronunciation: "たくみ (Takumi)" },
+          { name: "康太", pronunciation: "こうた (Kota)" },
+          { name: "遥", pronunciation: "はるき (Haruki)" },
+          { name: "優樹", pronunciation: "ゆうき (Yuki)" },
+          { name: "宙", pronunciation: "そら (Sora)" },
+          { name: "蓮", pronunciation: "れん (Ren)" },
+          { name: "春斗", pronunciation: "はると (Haruto)" },
+          { name: "巧", pronunciation: "たくみ (Takumi)" },
+          { name: "康太", pronunciation: "こうた (Kota)" },
+          { name: "遥", pronunciation: "はるき (Haruki)" },
+          { name: "優樹", pronunciation: "ゆうき (Yuki)" },
+          { name: "宗一郎", pronunciation: "そういちろう (Soichiro)" },
+          { name: "幸大", pronunciation: "こうだ (Koda)" },
+          { name: "真司", pronunciation: "しんじ (Shinji)" },
+          { name: "大輔", pronunciation: "だいすけ (Daisuke)" },
+          { name: "直樹", pronunciation: "なおき (Naoki)" },
+          { name: "健太", pronunciation: "けんた (Kenta)" },
+          { name: "宗一郎", pronunciation: "そういちろう (Soichiro)" },
+          { name: "幸大", pronunciation: "こうだ (Koda)" },
+          { name: "真司", pronunciation: "しんじ (Shinji)" },
+          { name: "大輔", pronunciation: "だいすけ (Daisuke)" },
+          { name: "直樹", pronunciation: "なおき (Naoki)" },
+          { name: "健太", pronunciation: "けんた (Kenta)" },
+        ];
+
+        console.log(japaneseNames);
+
+        switch (age) {
+          case "10s":
+            names = getCountryNames(
+              country,
+              englishNames[0],
+              thaiNames.slice(0, 5),
+              chineseNames.slice(0, 5),
+              japaneseNames.slice(0, 5)
+            );
+            break;
+          case "20s":
+            names = getCountryNames(
+              country,
+              englishNames[1],
+              thaiNames.slice(5, 10),
+              chineseNames.slice(5, 10),
+              japaneseNames.slice(5, 10)
+            );
+            break;
+          case "30s":
+            names = getCountryNames(
+              country,
+              englishNames[2],
+              thaiNames.slice(10, 15),
+              chineseNames.slice(10, 15),
+              japaneseNames.slice(10, 15)
+            );
+            break;
+          case "40s":
+            names = getCountryNames(
+              country,
+              englishNames[3],
+              thaiNames.slice(15),
+              chineseNames.slice(15),
+              japaneseNames.slice(15)
+            );
+            break;
+          default:
+            names = getCountryNames(
+              country,
+              englishNames[0],
+              thaiNames.slice(0, 5),
+              chineseNames.slice(0, 5),
+              japaneseNames.slice(0, 5)
+            );
+        }
+
+        return names[Math.floor(Math.random() * names.length)];
+      }
+
+      function getCountryNames(country, english, thai, chinese, japanese) {
+        let countryNames = [];
+
+        switch (country) {
+          case "english":
+            countryNames = english;
+            break;
+          case "thailand":
+            countryNames = thai;
+            break;
+          case "china":
+            countryNames = chinese;
+            break;
+          case "japan":
+            countryNames = japanese;
+            break;
+          default:
+            countryNames = english;
+        }
+
+        return countryNames;
+      }
+    </script>
+  </body>
 </html>
